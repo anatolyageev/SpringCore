@@ -1,0 +1,4 @@
+Event{id=0, msg='New messege for user XML Name', date=Oct 17, 2020}Event{id=0, msg='New messege for user XML Name', date=Oct 17, 2020}Event{id=0, msg='New messege for user XML Name', date=Oct 17, 2020}Event{id=0, msg='New messege for user 2', date=Oct 17, 2020}Event{id=0, msg='New messege for user XML Name', date=Oct 17, 2020}
+Event{id=0, msg='New messege for user 2', date=Oct 17, 2020}
+Event{id=0, msg='New messege for user XML Name', date=Oct 17, 2020}
+Event{id=0, msg='New messege for user 2', date=Oct 17, 2020}

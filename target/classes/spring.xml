@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns= "http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd" >
-<bean id="client" class="domen.Client">
-      <constructor-arg value="1"/>
-      <constructor-arg value="XML Name"/>
-</bean>
-<bean id="eventLogger"
-      class="service.impl.ConsoleEventLogger"/>
-<bean id="app" class="App">
-      <constructor-arg ref="client"/>
-      <constructor-arg ref="eventLogger"/>
-</bean>
-        </beans>
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+    <bean id="client" class="domen.Client">
+        <constructor-arg value="1"/>
+        <constructor-arg value="XML Name"/>
+    </bean>
+    <bean id="eventLogger"
+          class="service.impl.ConsoleEventLogger"/>
+    <bean id="fileLogger" class="service.impl.FileEventLogger" init-method="init">
+        <constructor-arg value="src/main/resources/log1.txt"/>
+    </bean>
+    <bean id="cacheFileEventLogger" class="service.impl.CacheFileEventLogger" destroy-method="destroy">
+        <constructor-arg value="src/main/resources/log1.txt"/>
+        <constructor-arg value="5"/>
+    </bean>
+    <bean id="app" class="App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheFileEventLogger"/>
+    </bean>
+
+    <bean id="event" class="domen.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateInstance"/>
+        </constructor-arg>
+    </bean>
+
+</beans>
