@@ -1,9 +1,16 @@
 import domen.Client;
-import service.ConsoleEventLogger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import service.EventLogger;
 
 public class App {
     Client client;
-    ConsoleEventLogger eventLogger;
+    EventLogger eventLogger;
+
+    public App(Client client, EventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
 
     public void logEvent(String msg){
         String messege = msg.replaceAll(String.valueOf(client.getId()), client.getFullName());
@@ -11,10 +18,10 @@ public class App {
     }
 
     public static void main(String[] args) {
-        App app = new App();
-        app.client = new Client(1, "John Smith");
-        app.eventLogger = new ConsoleEventLogger();
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        App app = (App) ctx.getBean("app");
 
         app.logEvent("New messege for user 1");
+        app.logEvent("New messege for user 2");
     }
 }
