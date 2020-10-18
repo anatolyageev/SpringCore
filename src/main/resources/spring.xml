@@ -8,6 +8,7 @@
     <bean id="client" class="domen.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="XML Name"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
 
     <import resource="loggers.xml"/>
@@ -15,6 +16,12 @@
     <bean id="app" class="App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="eventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="event" class="domen.Event" scope="prototype">
